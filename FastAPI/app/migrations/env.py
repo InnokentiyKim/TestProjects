@@ -9,14 +9,15 @@ from alembic import context
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
-from app.database import Base, DSN
+from app.database import Base
+from app.config import settings
 from app.hotels.models import Hotels
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-config.set_main_option("sqlalchemy.url", f"{DSN}?async_fallback=True")
+config.set_main_option("sqlalchemy.url", f"{settings.DSN}?async_fallback=True")
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
