@@ -1,4 +1,4 @@
-from .config import PG_DSN
+from config import PG_DSN
 from sqlalchemy.ext.asyncio import AsyncAttrs, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 from sqlalchemy import String, Boolean, DateTime, Integer, func
@@ -27,6 +27,22 @@ class ToDo(Base):
     done: Mapped[bool] = mapped_column(Boolean, default=False)
     start_time: Mapped[datetime.datetime] = mapped_column(DateTime, server_default=func.now())
     end_time: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=True)
+
+    @property
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "important": self.important,
+            "done": self.done,
+            "start_time": self.start_time.isoformat(),
+            "end_time": self.end_time.isoformat() if self.end_time else None
+        }
+
+
+ORM_OBJ = ToDo
+ORM_CLS = type[ToDo]
 
 
 async def init_orm():
