@@ -1,7 +1,8 @@
-from fastapi import APIRouter
-
+from fastapi import APIRouter, Depends
 from app.bookings.dao import BookingDAO
 from app.bookings.schemas import BookingSchema
+from app.users.dependencies import get_current_user
+from app.users.models import Users
 
 router = APIRouter(
     prefix="/bookings",
@@ -10,8 +11,8 @@ router = APIRouter(
 
 
 @router.get("")
-async def get_bookings() -> list[BookingSchema]:
-    return await BookingDAO.find_all()
+async def get_bookings(user: Users = Depends(get_current_user)) -> list[BookingSchema]:
+    return await BookingDAO.find_all(id=user.id)
 
 
 @router.get("/{booking_id}")
