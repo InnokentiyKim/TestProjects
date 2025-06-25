@@ -34,11 +34,3 @@ def get_hotels(
     ]
     return hotels
 
-class BookingPostSchema(BaseModel):
-    room_id: int
-    date_from: date
-    date_to: date
-
-@app.post("/bookings")
-def add_booking(booking: BookingPostSchema):
-    pass
