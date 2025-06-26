@@ -41,3 +41,11 @@ class UpdateToDoResponse(IdResponseBase):
 
 class DeleteToDoResponse(StatusResponse):
     pass
+
+
+class CreateUserRequest(BaseModel):
+    name: str
+    password: str
+
+class CreateUserResponse(IdResponseBase):
+    pass
