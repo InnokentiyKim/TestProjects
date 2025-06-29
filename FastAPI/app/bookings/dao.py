@@ -4,7 +4,7 @@ from sqlalchemy import select, insert, and_, or_, func
 
 from app.bookings.models import Bookings
 from app.database import async_session_maker
-from app.hotels.models import Rooms
+from app.hotels.rooms.models import Rooms
 
 
 class BookingDAO(BaseDAO):
